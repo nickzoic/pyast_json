@@ -53,14 +53,26 @@ FRAGMENTS = [
 ]
 
 
+def canonical_dump(tree) -> str:
+    """ast.dump with the u'' prefix flag removed.
+
+    The prefix is presentation only; ast.unparse drops it inside f-strings,
+    so it is not compared.  Literal values are compared exactly.
+    """
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Constant):
+            node.kind = None
+    with deep_recursion():
+        return ast.dump(tree)
+
+
 def _check_roundtrip(source: str) -> None:
     """Round-trip one piece of source; raises AssertionError on any mismatch."""
     data = pyast_json.loads(pyast_json.dumps(pyast_json.source_to_json(source)))
     assert pyast_json.is_valid(data), "encoder produced data that fails the schema"
     regenerated = pyast_json.json_to_source(data)
     original = normalize_source(source)
-    with deep_recursion():
-        assert ast.dump(ast.parse(regenerated)) == ast.dump(ast.parse(original)), regenerated
+    assert canonical_dump(ast.parse(regenerated)) == canonical_dump(ast.parse(original)), regenerated
     comments = lambda s: collections.Counter(t for _, t in pyast_json.read_comments(s))  # noqa: E731
     assert comments(regenerated) == comments(original)
 

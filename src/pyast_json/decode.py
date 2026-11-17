@@ -43,7 +43,10 @@ def json_to_source(data: dict) -> str:
             builder = _Builder("_pyast_comment_" + uuid.uuid4().hex + "_")
             module = builder.node(data)
             ast.fix_missing_locations(module)
-            code = ast.unparse(module)
+            try:
+                code = ast.unparse(module)
+            except (TypeError, ValueError, AttributeError) as exc:
+                raise ConversionError(f"tree cannot be printed as Python: {exc}") from exc
             if code.count(builder.prefix) == len(builder.comments):
                 break
         else:  # pragma: no cover
@@ -162,6 +165,34 @@ def constant_expr(value, kind=None) -> ast.expr:
 # Nodes
 # --------------------------------------------------------------------------
 
+def _check_shape(name: str, data: dict) -> None:
+    """Checks that ``ast.unparse`` would otherwise silently get wrong.
+
+    The schema cannot express relations between list lengths, and
+    ``ast.unparse`` pairs items with ``zip`` (silently dropping extras), so
+    these are checked here.
+    """
+    def length(field):
+        value = data.get(field)
+        return len(value) if isinstance(value, list) else 0
+
+    if name == "Dict" and length("keys") != length("values"):
+        raise ConversionError("Dict needs as many keys as values")
+    if name == "Compare" and (length("ops") != length("comparators") or not length("ops")):
+        raise ConversionError("Compare needs one or more ops, one per comparator")
+    if name == "MatchMapping" and length("keys") != length("patterns"):
+        raise ConversionError("MatchMapping needs as many keys as patterns")
+    if name == "MatchClass" and length("kwd_attrs") != length("kwd_patterns"):
+        raise ConversionError("MatchClass needs as many kwd_attrs as kwd_patterns")
+    if name == "arguments":
+        if length("kw_defaults") != length("kwonlyargs"):
+            raise ConversionError("arguments needs one kw_defaults entry per kwonlyarg (null if none)")
+        if length("defaults") > length("posonlyargs") + length("args"):
+            raise ConversionError("arguments has more defaults than positional parameters")
+    if name == "Raise" and data.get("cause") is not None and data.get("exc") is None:
+        raise ConversionError("Raise cannot have a cause without an exception")
+
+
 class _Builder:
     def __init__(self, prefix: str | None):
         self.prefix = prefix              # None: drop comments
@@ -179,6 +210,7 @@ class _Builder:
         cls = getattr(ast, name, None)
         if not (isinstance(cls, type) and issubclass(cls, ast.AST)):
             raise ConversionError(f"ast.{name} needs a newer Python than {_PY}")
+        _check_shape(name, data)
         if name == "Constant":
             value = decode_constant(data.get("value"))
             if expected in ("fstring_part", "tstring_part") and not isinstance(value, str):
@@ -199,7 +231,10 @@ class _Builder:
         if name == "DictComp" and kwargs["value"] is None and sys.version_info < (3, 15):
             raise ConversionError(f"DictComp without a value ({{**x for x in y}}) "
                                   f"needs a newer Python than {_PY}")
-        return cls(**kwargs)
+        try:
+            return cls(**kwargs)
+        except (TypeError, ValueError) as exc:  # e.g. a field of the wrong type
+            raise ConversionError(f"cannot build ast.{name}: {exc}") from exc
 
     def value(self, raw, field):
         if not field.is_list:

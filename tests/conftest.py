@@ -36,6 +36,15 @@ def jsonschema():
     return pytest.importorskip("jsonschema")
 
 
+def canonical_dump(tree) -> str:
+    """ast.dump ignoring the u'' prefix flag (presentation only; see test_fuzz)."""
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Constant):
+            node.kind = None
+    with deep_recursion():
+        return ast.dump(tree)
+
+
 def _comment_texts(source):
     return collections.Counter(text for _, text in pyast_json.read_comments(source))
 
@@ -54,8 +63,7 @@ def check_roundtrip(source, validate=True):
             pyast_json.validate(data)
     regenerated = pyast_json.json_to_source(data)
     original = normalize_source(source)
-    with deep_recursion():
-        assert ast.dump(ast.parse(regenerated)) == ast.dump(ast.parse(original))
+    assert canonical_dump(ast.parse(regenerated)) == canonical_dump(ast.parse(original))
     assert _comment_texts(regenerated) == _comment_texts(original)
     return data, regenerated
 

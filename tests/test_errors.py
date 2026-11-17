@@ -84,3 +84,64 @@ def test_missing_optional_fields_get_defaults():
         {"_type": "ImportFrom", "module": "os", "names": [{"_type": "alias", "name": "path"}]},
     ]}
     assert pyast_json.json_to_source(data) == "def f():\n    pass\nfrom os import path\n"
+
+
+# --------------------------------------------------------------------------
+# Shapes that the schema allows but that cannot be printed faithfully.
+# Found by the fuzz tests: ast.unparse pairs lists with zip(), which silently
+# drops items, and raises for some combinations.
+# --------------------------------------------------------------------------
+
+def _name(id_):
+    return {"_type": "Name", "id": id_, "ctx": {"_type": "Load"}}
+
+
+def _const(value):
+    return {"_type": "Constant", "value": value, "kind": None}
+
+
+def _expr_module(expr):
+    return {"_type": "Module", "body": [{"_type": "Expr", "value": expr}]}
+
+
+BAD_SHAPES = {
+    "dict keys shorter than values": {"_type": "Dict", "keys": [_const("a")],
+                                      "values": [_const(1), _const(2)]},
+    "dict keys longer than values": {"_type": "Dict", "keys": [_const("a"), _const("b")],
+                                     "values": [_const(1)]},
+    "compare without comparators": {"_type": "Compare", "left": _name("a"), "ops": [],
+                                    "comparators": []},
+    "compare ops/comparators mismatch": {"_type": "Compare", "left": _name("a"),
+                                         "ops": [{"_type": "Lt"}, {"_type": "Lt"}],
+                                         "comparators": [_name("b")]},
+    "kw_defaults shorter than kwonlyargs": {"_type": "Lambda", "body": _name("x"), "args": {
+        "_type": "arguments", "posonlyargs": [], "args": [], "vararg": None,
+        "kwonlyargs": [{"_type": "arg", "arg": "k", "annotation": None}],
+        "kw_defaults": [], "kwarg": None, "defaults": []}},
+    "more defaults than parameters": {"_type": "Lambda", "body": _name("x"), "args": {
+        "_type": "arguments", "posonlyargs": [], "args": [], "vararg": None,
+        "kwonlyargs": [], "kw_defaults": [], "kwarg": None, "defaults": [_const(1)]}},
+    "raise cause without exc": {"_type": "Raise", "exc": None, "cause": _name("e")},
+}
+
+
+@pytest.mark.parametrize("node", list(BAD_SHAPES.values()), ids=list(BAD_SHAPES))
+def test_inconsistent_shapes_are_rejected(node):
+    stmt = node if node["_type"] == "Raise" else {"_type": "Expr", "value": node}
+    with pytest.raises(ConversionError):
+        pyast_json.json_to_source({"_type": "Module", "body": [stmt]})
+
+
+def test_matching_shapes_are_accepted():
+    data = _expr_module({"_type": "Dict", "keys": [_const("a"), None],
+                         "values": [_const(1), _name("m")]})
+    assert pyast_json.json_to_source(data) == "{'a': 1, **m}\n"
+
+
+def test_comments_must_be_strings():
+    for bad in (True, [None], "text", [1]):
+        data = {"_type": "Module", "body": [{"_type": "Pass", "comments": bad}]}
+        with pytest.raises(ConversionError):
+            pyast_json.json_to_source(data)
+    with pytest.raises(ConversionError):
+        pyast_json.json_to_source({"_type": "Module", "body": [], "comments": [None]})

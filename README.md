@@ -88,6 +88,8 @@ whole-standard-library test, and a longer fuzz run.
 - Comments are attached to the statement they are in or on, or else to the
   next statement. A comment after the last line of a block therefore moves
   to just before the following statement.
+- The `u` prefix of string literals is kept, except inside f-strings, where
+  `ast.unparse` drops it. The literal value is unchanged.
 - Source positions and `# type:` comment fields are not stored (`# type:`
   comments are kept as ordinary comments).
 - Trees using newer syntax convert back only on a Python that has it;
