@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyast-json"
+dynamic = ["version"]
+description = "Convert Python source to a JSON-schema-described abstract syntax tree (comments included) and back"
+readme = "README.md"
+license = "CC0-1.0"
+requires-python = ">=3.9"
+dependencies = []
+keywords = ["ast", "json", "json-schema", "parser", "unparse", "source code"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Software Development :: Compilers",
+    "Typing :: Typed",
+]
+
+[project.optional-dependencies]
+validate = ["jsonschema>=4.0"]
+test = ["pytest>=7", "pytest-cov>=4", "jsonschema>=4.0", "hypothesis>=6"]
+
+[project.scripts]
+pyast-json = "pyast_json.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "pyast_json.__version__" }
+
+[tool.setuptools.package-data]
+pyast_json = ["schema.json", "py.typed"]
+
+[tool.coverage.run]
+source = ["pyast_json"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+fail_under = 90
+exclude_also = ["if TYPE_CHECKING:", "raise NotImplementedError", "pragma: no cover"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --import-mode=importlib"
+markers = [
+    "slow: round-trips the whole standard library (enable with --runslow)",
+    "fuzz: property-based fuzz tests (hypothesis)",
+]

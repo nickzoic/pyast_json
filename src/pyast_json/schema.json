@@ -1,0 +1,4922 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:pyast-json:schema:1",
+  "title": "Python 3 abstract syntax tree (with comments) as JSON",
+  "description": "A Python module as produced by pyast_json.source_to_json(): every node is an object whose '_type' is the name of its class in Python's ast module (grammar of Python 3.9 to 3.15). Statements may carry 'comments'. Positions and type comments are not stored.",
+  "$ref": "#/$defs/Module",
+  "$defs": {
+    "mod": {
+      "description": "ast.mod: any of its subclasses.",
+      "type": "object",
+      "required": [
+        "_type"
+      ],
+      "properties": {
+        "_type": {
+          "enum": [
+            "Module"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Module"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Module"
+            }
+          ]
+        }
+      ]
+    },
+    "Module": {
+      "description": "ast.Module(stmt* body)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Module"
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "body"
+      ],
+      "additionalProperties": false
+    },
+    "stmt": {
+      "description": "ast.stmt: any of its subclasses.",
+      "type": "object",
+      "required": [
+        "_type"
+      ],
+      "properties": {
+        "_type": {
+          "enum": [
+            "FunctionDef",
+            "AsyncFunctionDef",
+            "ClassDef",
+            "Return",
+            "Delete",
+            "Assign",
+            "TypeAlias",
+            "AugAssign",
+            "AnnAssign",
+            "For",
+            "AsyncFor",
+            "While",
+            "If",
+            "With",
+            "AsyncWith",
+            "Match",
+            "Raise",
+            "Try",
+            "TryStar",
+            "Assert",
+            "Import",
+            "ImportFrom",
+            "Global",
+            "Nonlocal",
+            "Expr",
+            "Pass",
+            "Break",
+            "Continue"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "FunctionDef"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/FunctionDef"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "AsyncFunctionDef"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/AsyncFunctionDef"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "ClassDef"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/ClassDef"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Return"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Return"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Delete"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Delete"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Assign"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Assign"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "TypeAlias"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/TypeAlias"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "AugAssign"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/AugAssign"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "AnnAssign"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/AnnAssign"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "For"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/For"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "AsyncFor"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/AsyncFor"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "While"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/While"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "If"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/If"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "With"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/With"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "AsyncWith"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/AsyncWith"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Match"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Match"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Raise"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Raise"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Try"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Try"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "TryStar"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/TryStar"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Assert"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Assert"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Import"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Import"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "ImportFrom"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/ImportFrom"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Global"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Global"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Nonlocal"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Nonlocal"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Expr"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Expr"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Pass"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Pass"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Break"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Break"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Continue"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Continue"
+            }
+          ]
+        }
+      ]
+    },
+    "FunctionDef": {
+      "description": "ast.FunctionDef(identifier name, arguments args, stmt* body, expr* decorator_list, expr? returns, type_param* type_params)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "FunctionDef"
+        },
+        "name": {
+          "$ref": "#/$defs/identifier"
+        },
+        "args": {
+          "$ref": "#/$defs/arguments"
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "decorator_list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expr"
+          }
+        },
+        "returns": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "type_params": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/type_param"
+          }
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "name",
+        "args",
+        "body",
+        "decorator_list",
+        "returns",
+        "type_params"
+      ],
+      "additionalProperties": false
+    },
+    "AsyncFunctionDef": {
+      "description": "ast.AsyncFunctionDef(identifier name, arguments args, stmt* body, expr* decorator_list, expr? returns, type_param* type_params)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "AsyncFunctionDef"
+        },
+        "name": {
+          "$ref": "#/$defs/identifier"
+        },
+        "args": {
+          "$ref": "#/$defs/arguments"
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "decorator_list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expr"
+          }
+        },
+        "returns": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "type_params": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/type_param"
+          }
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "name",
+        "args",
+        "body",
+        "decorator_list",
+        "returns",
+        "type_params"
+      ],
+      "additionalProperties": false
+    },
+    "ClassDef": {
+      "description": "ast.ClassDef(identifier name, expr* bases, keyword* keywords, stmt* body, expr* decorator_list, type_param* type_params)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "ClassDef"
+        },
+        "name": {
+          "$ref": "#/$defs/identifier"
+        },
+        "bases": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expr"
+          }
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/keyword"
+          }
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "decorator_list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expr"
+          }
+        },
+        "type_params": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/type_param"
+          }
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "name",
+        "bases",
+        "keywords",
+        "body",
+        "decorator_list",
+        "type_params"
+      ],
+      "additionalProperties": false
+    },
+    "Return": {
+      "description": "ast.Return(expr? value)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Return"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "Delete": {
+      "description": "ast.Delete(expr* targets)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Delete"
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expr"
+          }
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "targets"
+      ],
+      "additionalProperties": false
+    },
+    "Assign": {
+      "description": "ast.Assign(expr* targets, expr value)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Assign"
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expr"
+          }
+        },
+        "value": {
+          "$ref": "#/$defs/expr"
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "targets",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "TypeAlias": {
+      "description": "ast.TypeAlias(expr name, type_param* type_params, expr value)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "TypeAlias"
+        },
+        "name": {
+          "$ref": "#/$defs/expr"
+        },
+        "type_params": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/type_param"
+          }
+        },
+        "value": {
+          "$ref": "#/$defs/expr"
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "name",
+        "type_params",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "AugAssign": {
+      "description": "ast.AugAssign(expr target, operator op, expr value)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "AugAssign"
+        },
+        "target": {
+          "$ref": "#/$defs/expr"
+        },
+        "op": {
+          "$ref": "#/$defs/operator"
+        },
+        "value": {
+          "$ref": "#/$defs/expr"
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "target",
+        "op",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "AnnAssign": {
+      "description": "ast.AnnAssign(expr target, expr annotation, expr? value, flag simple)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "AnnAssign"
+        },
+        "target": {
+          "$ref": "#/$defs/expr"
+        },
+        "annotation": {
+          "$ref": "#/$defs/expr"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simple": {
+          "$ref": "#/$defs/flag"
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "target",
+        "annotation",
+        "value",
+        "simple"
+      ],
+      "additionalProperties": false
+    },
+    "For": {
+      "description": "ast.For(expr target, expr iter, stmt* body, stmt* orelse)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "For"
+        },
+        "target": {
+          "$ref": "#/$defs/expr"
+        },
+        "iter": {
+          "$ref": "#/$defs/expr"
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "orelse": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "target",
+        "iter",
+        "body",
+        "orelse"
+      ],
+      "additionalProperties": false
+    },
+    "AsyncFor": {
+      "description": "ast.AsyncFor(expr target, expr iter, stmt* body, stmt* orelse)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "AsyncFor"
+        },
+        "target": {
+          "$ref": "#/$defs/expr"
+        },
+        "iter": {
+          "$ref": "#/$defs/expr"
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "orelse": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "target",
+        "iter",
+        "body",
+        "orelse"
+      ],
+      "additionalProperties": false
+    },
+    "While": {
+      "description": "ast.While(expr test, stmt* body, stmt* orelse)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "While"
+        },
+        "test": {
+          "$ref": "#/$defs/expr"
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "orelse": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "test",
+        "body",
+        "orelse"
+      ],
+      "additionalProperties": false
+    },
+    "If": {
+      "description": "ast.If(expr test, stmt* body, stmt* orelse)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "If"
+        },
+        "test": {
+          "$ref": "#/$defs/expr"
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "orelse": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "test",
+        "body",
+        "orelse"
+      ],
+      "additionalProperties": false
+    },
+    "With": {
+      "description": "ast.With(withitem* items, stmt* body)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "With"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/withitem"
+          }
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "items",
+        "body"
+      ],
+      "additionalProperties": false
+    },
+    "AsyncWith": {
+      "description": "ast.AsyncWith(withitem* items, stmt* body)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "AsyncWith"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/withitem"
+          }
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "items",
+        "body"
+      ],
+      "additionalProperties": false
+    },
+    "Match": {
+      "description": "ast.Match(expr subject, match_case* cases)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Match"
+        },
+        "subject": {
+          "$ref": "#/$defs/expr"
+        },
+        "cases": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/match_case"
+          }
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "subject",
+        "cases"
+      ],
+      "additionalProperties": false
+    },
+    "Raise": {
+      "description": "ast.Raise(expr? exc, expr? cause)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Raise"
+        },
+        "exc": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cause": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "exc",
+        "cause"
+      ],
+      "additionalProperties": false
+    },
+    "Try": {
+      "description": "ast.Try(stmt* body, excepthandler* handlers, stmt* orelse, stmt* finalbody)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Try"
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "handlers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/excepthandler"
+          }
+        },
+        "orelse": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "finalbody": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "body",
+        "handlers",
+        "orelse",
+        "finalbody"
+      ],
+      "additionalProperties": false
+    },
+    "TryStar": {
+      "description": "ast.TryStar(stmt* body, excepthandler* handlers, stmt* orelse, stmt* finalbody)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "TryStar"
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "handlers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/excepthandler"
+          }
+        },
+        "orelse": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "finalbody": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "body",
+        "handlers",
+        "orelse",
+        "finalbody"
+      ],
+      "additionalProperties": false
+    },
+    "Assert": {
+      "description": "ast.Assert(expr test, expr? msg)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Assert"
+        },
+        "test": {
+          "$ref": "#/$defs/expr"
+        },
+        "msg": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "test",
+        "msg"
+      ],
+      "additionalProperties": false
+    },
+    "Import": {
+      "description": "ast.Import(alias* names, flag? is_lazy)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Import"
+        },
+        "names": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/alias"
+          }
+        },
+        "is_lazy": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/flag"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "names",
+        "is_lazy"
+      ],
+      "additionalProperties": false
+    },
+    "ImportFrom": {
+      "description": "ast.ImportFrom(identifier? module, alias* names, count? level, flag? is_lazy)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "ImportFrom"
+        },
+        "module": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "names": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/alias"
+          }
+        },
+        "level": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/count"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "is_lazy": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/flag"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "module",
+        "names",
+        "level",
+        "is_lazy"
+      ],
+      "additionalProperties": false
+    },
+    "Global": {
+      "description": "ast.Global(identifier* names)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Global"
+        },
+        "names": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "names"
+      ],
+      "additionalProperties": false
+    },
+    "Nonlocal": {
+      "description": "ast.Nonlocal(identifier* names)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Nonlocal"
+        },
+        "names": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "names"
+      ],
+      "additionalProperties": false
+    },
+    "Expr": {
+      "description": "ast.Expr(expr value)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Expr"
+        },
+        "value": {
+          "$ref": "#/$defs/expr"
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "Pass": {
+      "description": "ast.Pass()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Pass"
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "Break": {
+      "description": "ast.Break()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Break"
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "Continue": {
+      "description": "ast.Continue()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Continue"
+        },
+        "comments": {
+          "$ref": "#/$defs/comments"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "expr": {
+      "description": "ast.expr: any of its subclasses.",
+      "type": "object",
+      "required": [
+        "_type"
+      ],
+      "properties": {
+        "_type": {
+          "enum": [
+            "BoolOp",
+            "NamedExpr",
+            "BinOp",
+            "UnaryOp",
+            "Lambda",
+            "IfExp",
+            "Dict",
+            "Set",
+            "ListComp",
+            "SetComp",
+            "DictComp",
+            "GeneratorExp",
+            "Await",
+            "Yield",
+            "YieldFrom",
+            "Compare",
+            "Call",
+            "FormattedValue",
+            "Interpolation",
+            "JoinedStr",
+            "TemplateStr",
+            "Constant",
+            "Attribute",
+            "Subscript",
+            "Starred",
+            "Name",
+            "List",
+            "Tuple",
+            "Slice"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "BoolOp"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/BoolOp"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "NamedExpr"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/NamedExpr"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "BinOp"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/BinOp"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "UnaryOp"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/UnaryOp"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Lambda"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Lambda"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "IfExp"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/IfExp"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Dict"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Dict"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Set"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Set"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "ListComp"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/ListComp"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "SetComp"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/SetComp"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "DictComp"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/DictComp"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "GeneratorExp"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/GeneratorExp"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Await"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Await"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Yield"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Yield"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "YieldFrom"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/YieldFrom"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Compare"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Compare"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Call"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Call"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "FormattedValue"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/FormattedValue"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Interpolation"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Interpolation"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "JoinedStr"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/JoinedStr"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "TemplateStr"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/TemplateStr"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Constant"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Constant"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Attribute"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Attribute"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Subscript"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Subscript"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Starred"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Starred"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Name"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Name"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "List"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/List"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Tuple"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Tuple"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Slice"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Slice"
+            }
+          ]
+        }
+      ]
+    },
+    "BoolOp": {
+      "description": "ast.BoolOp(boolop op, expr* values)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "BoolOp"
+        },
+        "op": {
+          "$ref": "#/$defs/boolop"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expr"
+          }
+        }
+      },
+      "required": [
+        "_type",
+        "op",
+        "values"
+      ],
+      "additionalProperties": false
+    },
+    "NamedExpr": {
+      "description": "ast.NamedExpr(expr target, expr value)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "NamedExpr"
+        },
+        "target": {
+          "$ref": "#/$defs/expr"
+        },
+        "value": {
+          "$ref": "#/$defs/expr"
+        }
+      },
+      "required": [
+        "_type",
+        "target",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "BinOp": {
+      "description": "ast.BinOp(expr left, operator op, expr right)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "BinOp"
+        },
+        "left": {
+          "$ref": "#/$defs/expr"
+        },
+        "op": {
+          "$ref": "#/$defs/operator"
+        },
+        "right": {
+          "$ref": "#/$defs/expr"
+        }
+      },
+      "required": [
+        "_type",
+        "left",
+        "op",
+        "right"
+      ],
+      "additionalProperties": false
+    },
+    "UnaryOp": {
+      "description": "ast.UnaryOp(unaryop op, expr operand)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "UnaryOp"
+        },
+        "op": {
+          "$ref": "#/$defs/unaryop"
+        },
+        "operand": {
+          "$ref": "#/$defs/expr"
+        }
+      },
+      "required": [
+        "_type",
+        "op",
+        "operand"
+      ],
+      "additionalProperties": false
+    },
+    "Lambda": {
+      "description": "ast.Lambda(arguments args, expr body)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Lambda"
+        },
+        "args": {
+          "$ref": "#/$defs/arguments"
+        },
+        "body": {
+          "$ref": "#/$defs/expr"
+        }
+      },
+      "required": [
+        "_type",
+        "args",
+        "body"
+      ],
+      "additionalProperties": false
+    },
+    "IfExp": {
+      "description": "ast.IfExp(expr test, expr body, expr orelse)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "IfExp"
+        },
+        "test": {
+          "$ref": "#/$defs/expr"
+        },
+        "body": {
+          "$ref": "#/$defs/expr"
+        },
+        "orelse": {
+          "$ref": "#/$defs/expr"
+        }
+      },
+      "required": [
+        "_type",
+        "test",
+        "body",
+        "orelse"
+      ],
+      "additionalProperties": false
+    },
+    "Dict": {
+      "description": "ast.Dict(expr?* keys, expr* values)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Dict"
+        },
+        "keys": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/expr"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expr"
+          }
+        }
+      },
+      "required": [
+        "_type",
+        "keys",
+        "values"
+      ],
+      "additionalProperties": false
+    },
+    "Set": {
+      "description": "ast.Set(expr* elts)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Set"
+        },
+        "elts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expr"
+          }
+        }
+      },
+      "required": [
+        "_type",
+        "elts"
+      ],
+      "additionalProperties": false
+    },
+    "ListComp": {
+      "description": "ast.ListComp(expr elt, comprehension* generators)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "ListComp"
+        },
+        "elt": {
+          "$ref": "#/$defs/expr"
+        },
+        "generators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/comprehension"
+          }
+        }
+      },
+      "required": [
+        "_type",
+        "elt",
+        "generators"
+      ],
+      "additionalProperties": false
+    },
+    "SetComp": {
+      "description": "ast.SetComp(expr elt, comprehension* generators)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "SetComp"
+        },
+        "elt": {
+          "$ref": "#/$defs/expr"
+        },
+        "generators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/comprehension"
+          }
+        }
+      },
+      "required": [
+        "_type",
+        "elt",
+        "generators"
+      ],
+      "additionalProperties": false
+    },
+    "DictComp": {
+      "description": "ast.DictComp(expr key, expr? value, comprehension* generators)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "DictComp"
+        },
+        "key": {
+          "$ref": "#/$defs/expr"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "generators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/comprehension"
+          }
+        }
+      },
+      "required": [
+        "_type",
+        "key",
+        "value",
+        "generators"
+      ],
+      "additionalProperties": false
+    },
+    "GeneratorExp": {
+      "description": "ast.GeneratorExp(expr elt, comprehension* generators)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "GeneratorExp"
+        },
+        "elt": {
+          "$ref": "#/$defs/expr"
+        },
+        "generators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/comprehension"
+          }
+        }
+      },
+      "required": [
+        "_type",
+        "elt",
+        "generators"
+      ],
+      "additionalProperties": false
+    },
+    "Await": {
+      "description": "ast.Await(expr value)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Await"
+        },
+        "value": {
+          "$ref": "#/$defs/expr"
+        }
+      },
+      "required": [
+        "_type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "Yield": {
+      "description": "ast.Yield(expr? value)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Yield"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "_type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "YieldFrom": {
+      "description": "ast.YieldFrom(expr value)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "YieldFrom"
+        },
+        "value": {
+          "$ref": "#/$defs/expr"
+        }
+      },
+      "required": [
+        "_type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "Compare": {
+      "description": "ast.Compare(expr left, cmpop* ops, expr* comparators)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Compare"
+        },
+        "left": {
+          "$ref": "#/$defs/expr"
+        },
+        "ops": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/cmpop"
+          }
+        },
+        "comparators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expr"
+          }
+        }
+      },
+      "required": [
+        "_type",
+        "left",
+        "ops",
+        "comparators"
+      ],
+      "additionalProperties": false
+    },
+    "Call": {
+      "description": "ast.Call(expr func, expr* args, keyword* keywords)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Call"
+        },
+        "func": {
+          "$ref": "#/$defs/expr"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expr"
+          }
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/keyword"
+          }
+        }
+      },
+      "required": [
+        "_type",
+        "func",
+        "args",
+        "keywords"
+      ],
+      "additionalProperties": false
+    },
+    "FormattedValue": {
+      "description": "ast.FormattedValue(expr value, conversion conversion, JoinedStr? format_spec)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "FormattedValue"
+        },
+        "value": {
+          "$ref": "#/$defs/expr"
+        },
+        "conversion": {
+          "$ref": "#/$defs/conversion"
+        },
+        "format_spec": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/JoinedStr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "_type",
+        "value",
+        "conversion",
+        "format_spec"
+      ],
+      "additionalProperties": false
+    },
+    "Interpolation": {
+      "description": "ast.Interpolation(expr value, string str, conversion conversion, JoinedStr? format_spec)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Interpolation"
+        },
+        "value": {
+          "$ref": "#/$defs/expr"
+        },
+        "str": {
+          "$ref": "#/$defs/string"
+        },
+        "conversion": {
+          "$ref": "#/$defs/conversion"
+        },
+        "format_spec": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/JoinedStr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "_type",
+        "value",
+        "str",
+        "conversion",
+        "format_spec"
+      ],
+      "additionalProperties": false
+    },
+    "JoinedStr": {
+      "description": "ast.JoinedStr(fstring_part* values)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "JoinedStr"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fstring_part"
+          }
+        }
+      },
+      "required": [
+        "_type",
+        "values"
+      ],
+      "additionalProperties": false
+    },
+    "TemplateStr": {
+      "description": "ast.TemplateStr(tstring_part* values)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "TemplateStr"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tstring_part"
+          }
+        }
+      },
+      "required": [
+        "_type",
+        "values"
+      ],
+      "additionalProperties": false
+    },
+    "Constant": {
+      "description": "ast.Constant(constant value, constant_kind? kind)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Constant"
+        },
+        "value": {
+          "$ref": "#/$defs/constant"
+        },
+        "kind": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/constant_kind"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "_type",
+        "value",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "Attribute": {
+      "description": "ast.Attribute(expr value, identifier attr, expr_context ctx)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Attribute"
+        },
+        "value": {
+          "$ref": "#/$defs/expr"
+        },
+        "attr": {
+          "$ref": "#/$defs/identifier"
+        },
+        "ctx": {
+          "$ref": "#/$defs/expr_context"
+        }
+      },
+      "required": [
+        "_type",
+        "value",
+        "attr",
+        "ctx"
+      ],
+      "additionalProperties": false
+    },
+    "Subscript": {
+      "description": "ast.Subscript(expr value, expr slice, expr_context ctx)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Subscript"
+        },
+        "value": {
+          "$ref": "#/$defs/expr"
+        },
+        "slice": {
+          "$ref": "#/$defs/expr"
+        },
+        "ctx": {
+          "$ref": "#/$defs/expr_context"
+        }
+      },
+      "required": [
+        "_type",
+        "value",
+        "slice",
+        "ctx"
+      ],
+      "additionalProperties": false
+    },
+    "Starred": {
+      "description": "ast.Starred(expr value, expr_context ctx)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Starred"
+        },
+        "value": {
+          "$ref": "#/$defs/expr"
+        },
+        "ctx": {
+          "$ref": "#/$defs/expr_context"
+        }
+      },
+      "required": [
+        "_type",
+        "value",
+        "ctx"
+      ],
+      "additionalProperties": false
+    },
+    "Name": {
+      "description": "ast.Name(identifier id, expr_context ctx)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Name"
+        },
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "ctx": {
+          "$ref": "#/$defs/expr_context"
+        }
+      },
+      "required": [
+        "_type",
+        "id",
+        "ctx"
+      ],
+      "additionalProperties": false
+    },
+    "List": {
+      "description": "ast.List(expr* elts, expr_context ctx)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "List"
+        },
+        "elts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expr"
+          }
+        },
+        "ctx": {
+          "$ref": "#/$defs/expr_context"
+        }
+      },
+      "required": [
+        "_type",
+        "elts",
+        "ctx"
+      ],
+      "additionalProperties": false
+    },
+    "Tuple": {
+      "description": "ast.Tuple(expr* elts, expr_context ctx)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Tuple"
+        },
+        "elts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expr"
+          }
+        },
+        "ctx": {
+          "$ref": "#/$defs/expr_context"
+        }
+      },
+      "required": [
+        "_type",
+        "elts",
+        "ctx"
+      ],
+      "additionalProperties": false
+    },
+    "Slice": {
+      "description": "ast.Slice(expr? lower, expr? upper, expr? step)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Slice"
+        },
+        "lower": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "upper": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "step": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "_type",
+        "lower",
+        "upper",
+        "step"
+      ],
+      "additionalProperties": false
+    },
+    "expr_context": {
+      "description": "ast.expr_context: any of its subclasses.",
+      "type": "object",
+      "required": [
+        "_type"
+      ],
+      "properties": {
+        "_type": {
+          "enum": [
+            "Load",
+            "Store",
+            "Del"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Load"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Load"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Store"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Store"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Del"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Del"
+            }
+          ]
+        }
+      ]
+    },
+    "Load": {
+      "description": "ast.Load()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Load"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "Store": {
+      "description": "ast.Store()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Store"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "Del": {
+      "description": "ast.Del()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Del"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "boolop": {
+      "description": "ast.boolop: any of its subclasses.",
+      "type": "object",
+      "required": [
+        "_type"
+      ],
+      "properties": {
+        "_type": {
+          "enum": [
+            "And",
+            "Or"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "And"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/And"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Or"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Or"
+            }
+          ]
+        }
+      ]
+    },
+    "And": {
+      "description": "ast.And()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "And"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "Or": {
+      "description": "ast.Or()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Or"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "operator": {
+      "description": "ast.operator: any of its subclasses.",
+      "type": "object",
+      "required": [
+        "_type"
+      ],
+      "properties": {
+        "_type": {
+          "enum": [
+            "Add",
+            "Sub",
+            "Mult",
+            "MatMult",
+            "Div",
+            "Mod",
+            "Pow",
+            "LShift",
+            "RShift",
+            "BitOr",
+            "BitXor",
+            "BitAnd",
+            "FloorDiv"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Add"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Add"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Sub"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Sub"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Mult"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Mult"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "MatMult"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/MatMult"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Div"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Div"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Mod"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Mod"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Pow"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Pow"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "LShift"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/LShift"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "RShift"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/RShift"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "BitOr"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/BitOr"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "BitXor"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/BitXor"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "BitAnd"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/BitAnd"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "FloorDiv"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/FloorDiv"
+            }
+          ]
+        }
+      ]
+    },
+    "Add": {
+      "description": "ast.Add()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Add"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "Sub": {
+      "description": "ast.Sub()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Sub"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "Mult": {
+      "description": "ast.Mult()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Mult"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "MatMult": {
+      "description": "ast.MatMult()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "MatMult"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "Div": {
+      "description": "ast.Div()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Div"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "Mod": {
+      "description": "ast.Mod()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Mod"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "Pow": {
+      "description": "ast.Pow()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Pow"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "LShift": {
+      "description": "ast.LShift()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "LShift"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "RShift": {
+      "description": "ast.RShift()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "RShift"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "BitOr": {
+      "description": "ast.BitOr()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "BitOr"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "BitXor": {
+      "description": "ast.BitXor()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "BitXor"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "BitAnd": {
+      "description": "ast.BitAnd()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "BitAnd"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "FloorDiv": {
+      "description": "ast.FloorDiv()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "FloorDiv"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "unaryop": {
+      "description": "ast.unaryop: any of its subclasses.",
+      "type": "object",
+      "required": [
+        "_type"
+      ],
+      "properties": {
+        "_type": {
+          "enum": [
+            "Invert",
+            "Not",
+            "UAdd",
+            "USub"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Invert"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Invert"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Not"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Not"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "UAdd"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/UAdd"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "USub"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/USub"
+            }
+          ]
+        }
+      ]
+    },
+    "Invert": {
+      "description": "ast.Invert()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Invert"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "Not": {
+      "description": "ast.Not()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Not"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "UAdd": {
+      "description": "ast.UAdd()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "UAdd"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "USub": {
+      "description": "ast.USub()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "USub"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "cmpop": {
+      "description": "ast.cmpop: any of its subclasses.",
+      "type": "object",
+      "required": [
+        "_type"
+      ],
+      "properties": {
+        "_type": {
+          "enum": [
+            "Eq",
+            "NotEq",
+            "Lt",
+            "LtE",
+            "Gt",
+            "GtE",
+            "Is",
+            "IsNot",
+            "In",
+            "NotIn"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Eq"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Eq"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "NotEq"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/NotEq"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Lt"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Lt"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "LtE"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/LtE"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Gt"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Gt"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "GtE"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/GtE"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Is"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Is"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "IsNot"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/IsNot"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "In"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/In"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "NotIn"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/NotIn"
+            }
+          ]
+        }
+      ]
+    },
+    "Eq": {
+      "description": "ast.Eq()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Eq"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "NotEq": {
+      "description": "ast.NotEq()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "NotEq"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "Lt": {
+      "description": "ast.Lt()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Lt"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "LtE": {
+      "description": "ast.LtE()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "LtE"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "Gt": {
+      "description": "ast.Gt()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Gt"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "GtE": {
+      "description": "ast.GtE()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "GtE"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "Is": {
+      "description": "ast.Is()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "Is"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "IsNot": {
+      "description": "ast.IsNot()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "IsNot"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "In": {
+      "description": "ast.In()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "In"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "NotIn": {
+      "description": "ast.NotIn()",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "NotIn"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "excepthandler": {
+      "description": "ast.excepthandler: any of its subclasses.",
+      "type": "object",
+      "required": [
+        "_type"
+      ],
+      "properties": {
+        "_type": {
+          "enum": [
+            "ExceptHandler"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "ExceptHandler"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/ExceptHandler"
+            }
+          ]
+        }
+      ]
+    },
+    "ExceptHandler": {
+      "description": "ast.ExceptHandler(expr? type, identifier? name, stmt* body)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "ExceptHandler"
+        },
+        "type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        }
+      },
+      "required": [
+        "_type",
+        "type",
+        "name",
+        "body"
+      ],
+      "additionalProperties": false
+    },
+    "pattern": {
+      "description": "ast.pattern: any of its subclasses.",
+      "type": "object",
+      "required": [
+        "_type"
+      ],
+      "properties": {
+        "_type": {
+          "enum": [
+            "MatchValue",
+            "MatchSingleton",
+            "MatchSequence",
+            "MatchMapping",
+            "MatchClass",
+            "MatchStar",
+            "MatchAs",
+            "MatchOr"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "MatchValue"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/MatchValue"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "MatchSingleton"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/MatchSingleton"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "MatchSequence"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/MatchSequence"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "MatchMapping"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/MatchMapping"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "MatchClass"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/MatchClass"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "MatchStar"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/MatchStar"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "MatchAs"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/MatchAs"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "MatchOr"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/MatchOr"
+            }
+          ]
+        }
+      ]
+    },
+    "MatchValue": {
+      "description": "ast.MatchValue(expr value)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "MatchValue"
+        },
+        "value": {
+          "$ref": "#/$defs/expr"
+        }
+      },
+      "required": [
+        "_type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "MatchSingleton": {
+      "description": "ast.MatchSingleton(singleton value)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "MatchSingleton"
+        },
+        "value": {
+          "$ref": "#/$defs/singleton"
+        }
+      },
+      "required": [
+        "_type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "MatchSequence": {
+      "description": "ast.MatchSequence(pattern* patterns)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "MatchSequence"
+        },
+        "patterns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pattern"
+          }
+        }
+      },
+      "required": [
+        "_type",
+        "patterns"
+      ],
+      "additionalProperties": false
+    },
+    "MatchMapping": {
+      "description": "ast.MatchMapping(expr* keys, pattern* patterns, identifier? rest)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "MatchMapping"
+        },
+        "keys": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expr"
+          }
+        },
+        "patterns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pattern"
+          }
+        },
+        "rest": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "_type",
+        "keys",
+        "patterns",
+        "rest"
+      ],
+      "additionalProperties": false
+    },
+    "MatchClass": {
+      "description": "ast.MatchClass(expr cls, pattern* patterns, identifier* kwd_attrs, pattern* kwd_patterns)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "MatchClass"
+        },
+        "cls": {
+          "$ref": "#/$defs/expr"
+        },
+        "patterns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pattern"
+          }
+        },
+        "kwd_attrs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        },
+        "kwd_patterns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pattern"
+          }
+        }
+      },
+      "required": [
+        "_type",
+        "cls",
+        "patterns",
+        "kwd_attrs",
+        "kwd_patterns"
+      ],
+      "additionalProperties": false
+    },
+    "MatchStar": {
+      "description": "ast.MatchStar(identifier? name)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "MatchStar"
+        },
+        "name": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "_type",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "MatchAs": {
+      "description": "ast.MatchAs(pattern? pattern, identifier? name)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "MatchAs"
+        },
+        "pattern": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/pattern"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "_type",
+        "pattern",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "MatchOr": {
+      "description": "ast.MatchOr(pattern* patterns)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "MatchOr"
+        },
+        "patterns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pattern"
+          }
+        }
+      },
+      "required": [
+        "_type",
+        "patterns"
+      ],
+      "additionalProperties": false
+    },
+    "type_param": {
+      "description": "ast.type_param: any of its subclasses.",
+      "type": "object",
+      "required": [
+        "_type"
+      ],
+      "properties": {
+        "_type": {
+          "enum": [
+            "TypeVar",
+            "ParamSpec",
+            "TypeVarTuple"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "TypeVar"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/TypeVar"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "ParamSpec"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/ParamSpec"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "TypeVarTuple"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/TypeVarTuple"
+            }
+          ]
+        }
+      ]
+    },
+    "TypeVar": {
+      "description": "ast.TypeVar(identifier name, expr? bound, expr? default_value)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "TypeVar"
+        },
+        "name": {
+          "$ref": "#/$defs/identifier"
+        },
+        "bound": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "default_value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "_type",
+        "name",
+        "bound",
+        "default_value"
+      ],
+      "additionalProperties": false
+    },
+    "ParamSpec": {
+      "description": "ast.ParamSpec(identifier name, expr? default_value)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "ParamSpec"
+        },
+        "name": {
+          "$ref": "#/$defs/identifier"
+        },
+        "default_value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "_type",
+        "name",
+        "default_value"
+      ],
+      "additionalProperties": false
+    },
+    "TypeVarTuple": {
+      "description": "ast.TypeVarTuple(identifier name, expr? default_value)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "TypeVarTuple"
+        },
+        "name": {
+          "$ref": "#/$defs/identifier"
+        },
+        "default_value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "_type",
+        "name",
+        "default_value"
+      ],
+      "additionalProperties": false
+    },
+    "comprehension": {
+      "description": "ast.comprehension(expr target, expr iter, expr* ifs, flag is_async)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "comprehension"
+        },
+        "target": {
+          "$ref": "#/$defs/expr"
+        },
+        "iter": {
+          "$ref": "#/$defs/expr"
+        },
+        "ifs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expr"
+          }
+        },
+        "is_async": {
+          "$ref": "#/$defs/flag"
+        }
+      },
+      "required": [
+        "_type",
+        "target",
+        "iter",
+        "ifs",
+        "is_async"
+      ],
+      "additionalProperties": false
+    },
+    "arguments": {
+      "description": "ast.arguments(arg* posonlyargs, arg* args, arg? vararg, arg* kwonlyargs, expr?* kw_defaults, arg? kwarg, expr* defaults)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "arguments"
+        },
+        "posonlyargs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/arg"
+          }
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/arg"
+          }
+        },
+        "vararg": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/arg"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "kwonlyargs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/arg"
+          }
+        },
+        "kw_defaults": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/expr"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "kwarg": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/arg"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "defaults": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expr"
+          }
+        }
+      },
+      "required": [
+        "_type",
+        "posonlyargs",
+        "args",
+        "vararg",
+        "kwonlyargs",
+        "kw_defaults",
+        "kwarg",
+        "defaults"
+      ],
+      "additionalProperties": false
+    },
+    "arg": {
+      "description": "ast.arg(identifier arg, expr? annotation)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "arg"
+        },
+        "arg": {
+          "$ref": "#/$defs/identifier"
+        },
+        "annotation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "_type",
+        "arg",
+        "annotation"
+      ],
+      "additionalProperties": false
+    },
+    "keyword": {
+      "description": "ast.keyword(identifier? arg, expr value)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "keyword"
+        },
+        "arg": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "value": {
+          "$ref": "#/$defs/expr"
+        }
+      },
+      "required": [
+        "_type",
+        "arg",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "alias": {
+      "description": "ast.alias(identifier name, identifier? asname)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "alias"
+        },
+        "name": {
+          "$ref": "#/$defs/identifier"
+        },
+        "asname": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "_type",
+        "name",
+        "asname"
+      ],
+      "additionalProperties": false
+    },
+    "withitem": {
+      "description": "ast.withitem(expr context_expr, expr? optional_vars)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "withitem"
+        },
+        "context_expr": {
+          "$ref": "#/$defs/expr"
+        },
+        "optional_vars": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "_type",
+        "context_expr",
+        "optional_vars"
+      ],
+      "additionalProperties": false
+    },
+    "match_case": {
+      "description": "ast.match_case(pattern pattern, expr? guard, stmt* body)",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "match_case"
+        },
+        "pattern": {
+          "$ref": "#/$defs/pattern"
+        },
+        "guard": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/expr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stmt"
+          }
+        }
+      },
+      "required": [
+        "_type",
+        "pattern",
+        "guard",
+        "body"
+      ],
+      "additionalProperties": false
+    },
+    "fstring_part": {
+      "description": "Parts of an f-string.",
+      "type": "object",
+      "required": [
+        "_type"
+      ],
+      "properties": {
+        "_type": {
+          "enum": [
+            "Constant",
+            "FormattedValue"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Constant"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Constant_str"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "FormattedValue"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/FormattedValue"
+            }
+          ]
+        }
+      ]
+    },
+    "tstring_part": {
+      "description": "Parts of an t-string.",
+      "type": "object",
+      "required": [
+        "_type"
+      ],
+      "properties": {
+        "_type": {
+          "enum": [
+            "Constant",
+            "Interpolation"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Constant"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Constant_str"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "not": {
+                "properties": {
+                  "_type": {
+                    "const": "Interpolation"
+                  }
+                }
+              }
+            },
+            {
+              "$ref": "#/$defs/Interpolation"
+            }
+          ]
+        }
+      ]
+    },
+    "identifier": {
+      "description": "Identifier or dotted module name.",
+      "type": "string",
+      "minLength": 1
+    },
+    "string": {
+      "type": "string"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "flag": {
+      "description": "Boolean stored as an int, as in the ast module.",
+      "enum": [
+        0,
+        1
+      ]
+    },
+    "conversion": {
+      "description": "-1 (none), or ord('a'), ord('r'), ord('s').",
+      "enum": [
+        -1,
+        97,
+        114,
+        115
+      ]
+    },
+    "singleton": {
+      "enum": [
+        null,
+        true,
+        false
+      ]
+    },
+    "constant_kind": {
+      "description": "'u' for u'...' string literals.",
+      "enum": [
+        "u"
+      ]
+    },
+    "comments": {
+      "description": "Comment texts without the leading '#', one per line.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[^\\r\\n\\u0000]*$"
+      }
+    },
+    "real": {
+      "description": "A float: a JSON number, or one of the non-finite values as a string.",
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "enum": [
+            "inf",
+            "-inf",
+            "nan"
+          ]
+        }
+      ]
+    },
+    "constant_float": {
+      "description": "A float constant.",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "float"
+        },
+        "value": {
+          "$ref": "#/$defs/real"
+        }
+      },
+      "required": [
+        "_type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "constant_complex": {
+      "description": "A complex constant (the parser only produces imaginary literals).",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "complex"
+        },
+        "real": {
+          "$ref": "#/$defs/real"
+        },
+        "imag": {
+          "$ref": "#/$defs/real"
+        }
+      },
+      "required": [
+        "_type",
+        "real",
+        "imag"
+      ],
+      "additionalProperties": false
+    },
+    "constant_bytes": {
+      "description": "A bytes constant; character U+00XX stands for byte 0xXX.",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "bytes"
+        },
+        "latin1": {
+          "type": "string",
+          "pattern": "^[\\u0000-\\u00ff]*$"
+        }
+      },
+      "required": [
+        "_type",
+        "latin1"
+      ],
+      "additionalProperties": false
+    },
+    "constant_ellipsis": {
+      "description": "The Ellipsis constant (...).",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "ellipsis"
+        }
+      },
+      "required": [
+        "_type"
+      ],
+      "additionalProperties": false
+    },
+    "constant_str_escaped": {
+      "description": "A string containing lone surrogates (which JSON strings cannot hold faithfully), in Python's 'unicode_escape' encoding.",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "const": "str"
+        },
+        "escaped": {
+          "type": "string",
+          "pattern": "^[ -~]*$"
+        }
+      },
+      "required": [
+        "_type",
+        "escaped"
+      ],
+      "additionalProperties": false
+    },
+    "constant": {
+      "description": "Value of an ast.Constant.",
+      "anyOf": [
+        {
+          "type": [
+            "null",
+            "boolean",
+            "integer",
+            "string"
+          ]
+        },
+        {
+          "$ref": "#/$defs/constant_float"
+        },
+        {
+          "$ref": "#/$defs/constant_complex"
+        },
+        {
+          "$ref": "#/$defs/constant_bytes"
+        },
+        {
+          "$ref": "#/$defs/constant_ellipsis"
+        },
+        {
+          "$ref": "#/$defs/constant_str_escaped"
+        }
+      ]
+    },
+    "Constant_str": {
+      "description": "A Constant whose value is a string (literal part of an f/t-string).",
+      "allOf": [
+        {
+          "$ref": "#/$defs/Constant"
+        },
+        {
+          "properties": {
+            "value": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "#/$defs/constant_str_escaped"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}
